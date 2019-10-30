@@ -1,0 +1,93 @@
+body {
+    font-family: cursive;
+    background: url(https://twt-media.washtimes.com/media/image/2018/10/08/sudoku-900.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+#login,
+#level,
+#game {
+    display: none;
+    min-height: 100vh;
+    text-align: center;
+    font-family: Comic Sans MS;
+
+}
+
+form {
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 1em;
+    padding-top: 5px;
+
+}
+
+p {
+    text-align: center;
+}
+
+.buttonLevel {
+    text-align: center;
+    width: 100%;
+}
+
+#level h1 {
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+.table {
+    background-color: #b3d7ff;
+}
+
+.cell input {
+    display: inline-block;
+
+
+    border: 1px solid black;
+    width: 40px;
+    height: 40px;
+
+    text-align: center;
+    font-size: 30px;
+}
+
+#sudokuBoard {
+    width: 500px;
+    max-width: 100%;
+}
+
+#sudokuBoard table td:nth-child(3n+1) {
+    border-left: 2px solid black;
+}
+
+
+#sudokuBoard table td:nth-child(3n+3) {
+    border-right: 2px solid black;
+}
+
+
+#sudokuBoard table tr:first-child {
+    border-top: 2px solid black;
+}
+
+#sudokuBoard table tr:nth-child(3) {
+    border-bottom: 2px solid black;
+}
+
+#sudokuBoard table tr:nth-child(6) {
+    border-bottom: 2px solid black;
+}
+
+
+#sudokuBoard table tr:last-child {
+    border-bottom: 2px solid black;
+}
+
+
+
+#sudokuBoard table input {
+    background: transparent;
+    border: 0;
+    width: 1ch;
+    outline: 0;
+}

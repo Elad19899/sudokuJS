@@ -1,600 +1,763 @@
-// holds current user || empty if no user is connected
 window.currentUser = {};
 
-// game data
 window.levels = {
-
-    tables: [
-        [
-            ['9', '6', '2', '7', '8', '5', '3', '4', '1'],
-            ['8', '4', '5', '9', '3', '1', '6', '7', '2'],
-            ['3', '7', '1', '4', '6', '2', '8', '9', '5'],
-            ['5', '8', '6', '3', '7', '4', '1', '2', '9'],
-            ['1', '2', '9', '8', '5', '6', '7', '3', '4'],
-            ['7', '3', '4', '1', '2', '9', '5', '8', '6'],
-            ['6', '9', '3', '2', '1', '8', '4', '5', '7'],
-            ['2', '5', '7', '6', '4', '3', '9', '1', '8'],
-            ['4', '1', '8', '5', '9', '7', '2', '6', '3']
-        ],
-        [
-            ['1', '5', '4', '2', '3', '9', '6', '8', '7'],
-            ['8', '3', '2', '5', '7', '6', '1', '4', '9'],
-            ['9', '7', '6', '4', '8', '1', '2', '5', '3'],
-            ['4', '2', '3', '8', '6', '5', '7', '9', '1'],
-            ['7', '9', '5', '3', '1', '4', '8', '2', '6'],
-            ['6', '1', '8', '7', '9', '2', '5', '3', '4'],
-            ['3', '6', '7', '9', '5', '8', '4', '1', '2'],
-            ['5', '4', '1', '6', '2', '3', '9', '7', '8'],
-            ['2', '8', '9', '1', '4', '7', '3', '6', '5']
-        ],
-        [
-            ['6', '3', '8', '7', '2', '9', '1', '4', '5'],
-            ['5', '7', '1', '4', '8', '3', '6', '9', '2'],
-            ['4', '9', '2', '1', '6', '5', '3', '7', '8'],
-            ['2', '5', '3', '9', '1', '7', '8', '6', '4'],
-            ['8', '1', '6', '3', '4', '2', '9', '5', '7'],
-            ['7', '4', '9', '6', '5', '8', '2', '1', '3'],
-            ['9', '2', '4', '5', '3', '1', '7', '8', '6'],
-            ['3', '6', '7', '8', '9', '4', '5', '2', '1'],
-            ['1', '8', '5', '2', '7', '6', '4', '3', '9']
-        ],
-        [
-            ['1', '5', '4', '2', '3', '9', '6', '8', '7'],
-            ['8', '3', '2', '5', '7', '6', '1', '4', '9'],
-            ['9', '7', '6', '4', '8', '1', '2', '5', '3'],
-            ['4', '2', '3', '8', '6', '5', '7', '9', '1'],
-            ['7', '9', '5', '3', '1', '4', '8', '2', '6'],
-            ['6', '1', '8', '7', '9', '2', '5', '3', '4'],
-            ['3', '6', '7', '9', '5', '8', '4', '1', '2'],
-            ['5', '4', '1', '6', '2', '3', '9', '7', '8'],
-            ['2', '8', '9', '1', '4', '7', '3', '6', '5']
-        ]
+  tables: [
+    [
+      ["9", "6", "2", "7", "8", "5", "3", "4", "1"],
+      ["8", "4", "5", "9", "3", "1", "6", "7", "2"],
+      ["3", "7", "1", "4", "6", "2", "8", "9", "5"],
+      ["5", "8", "6", "3", "7", "4", "1", "2", "9"],
+      ["1", "2", "9", "8", "5", "6", "7", "3", "4"],
+      ["7", "3", "4", "1", "2", "9", "5", "8", "6"],
+      ["6", "9", "3", "2", "1", "8", "4", "5", "7"],
+      ["2", "5", "7", "6", "4", "3", "9", "1", "8"],
+      ["4", "1", "8", "5", "9", "7", "2", "6", "3"],
     ],
-    levels: {
-        1: 60,
-        2: 40,
-        3: 20
-    }
+    [
+      ["1", "5", "4", "2", "3", "9", "6", "8", "7"],
+      ["8", "3", "2", "5", "7", "6", "1", "4", "9"],
+      ["9", "7", "6", "4", "8", "1", "2", "5", "3"],
+      ["4", "2", "3", "8", "6", "5", "7", "9", "1"],
+      ["7", "9", "5", "3", "1", "4", "8", "2", "6"],
+      ["6", "1", "8", "7", "9", "2", "5", "3", "4"],
+      ["3", "6", "7", "9", "5", "8", "4", "1", "2"],
+      ["5", "4", "1", "6", "2", "3", "9", "7", "8"],
+      ["2", "8", "9", "1", "4", "7", "3", "6", "5"],
+    ],
+    [
+      ["6", "3", "8", "7", "2", "9", "1", "4", "5"],
+      ["5", "7", "1", "4", "8", "3", "6", "9", "2"],
+      ["4", "9", "2", "1", "6", "5", "3", "7", "8"],
+      ["2", "5", "3", "9", "1", "7", "8", "6", "4"],
+      ["8", "1", "6", "3", "4", "2", "9", "5", "7"],
+      ["7", "4", "9", "6", "5", "8", "2", "1", "3"],
+      ["9", "2", "4", "5", "3", "1", "7", "8", "6"],
+      ["3", "6", "7", "8", "9", "4", "5", "2", "1"],
+      ["1", "8", "5", "2", "7", "6", "4", "3", "9"],
+    ],
+    [
+      ["9", "6", "2", "7", "8", "5", "3", "4", "1"],
+      ["8", "4", "5", "9", "3", "1", "6", "7", "2"],
+      ["3", "7", "1", "4", "6", "2", "8", "9", "5"],
+      ["5", "8", "6", "3", "7", "4", "1", "2", "9"],
+      ["1", "2", "9", "8", "5", "6", "7", "3", "4"],
+      ["7", "3", "4", "1", "2", "9", "5", "8", "6"],
+      ["6", "9", "3", "2", "1", "8", "4", "5", "7"],
+      ["2", "5", "7", "6", "4", "3", "9", "1", "8"],
+      ["4", "1", "8", "5", "9", "7", "2", "6", "3"],
+    ],
+  ],
+  levels: {
+    1: 60,
+    2: 40,
+    3: 20,
+  },
+  difficultyNames: {
+    1: "Easy Flow",
+    2: "Balanced Mode",
+    3: "Expert Pressure",
+  },
 };
 
-window.currentLevel = null;
-window.currentTable = null;
+window.gameState = {
+  difficultyKey: null,
+  shownCount: null,
+  table: null,
+  hiddenCells: [],
+  selectedInput: null,
+  seconds: 0,
+  timerId: null,
+  completed: false,
+};
+
+window.statusTimer = null;
 
 function getUsers() {
-    if (localStorage.getItem('users') === null) {
-        localStorage.setItem('users', JSON.stringify([]));
-    }
+  if (localStorage.getItem("users") === null) {
+    localStorage.setItem("users", JSON.stringify([]));
+  }
 
-    return JSON.parse(localStorage.users);
+  return JSON.parse(localStorage.users);
+}
+
+function setView(viewId) {
+  ["login", "level", "game"].forEach(function (id) {
+    var element = document.getElementById(id);
+    element.style.display = id === viewId ? "flex" : "none";
+  });
+}
+
+function showStatus(message, tone) {
+  var banner = document.getElementById("statusBanner");
+  banner.textContent = message;
+  banner.className = "status-banner is-visible status-" + (tone || "info");
+
+  clearTimeout(window.statusTimer);
+  window.statusTimer = setTimeout(function () {
+    banner.className = "status-banner";
+  }, 2800);
+}
+
+function setFieldError(input, message) {
+  input.classList.add("is-invalid");
+  input.nextElementSibling.innerHTML = message;
+}
+
+function clearFieldError(input) {
+  input.classList.remove("is-invalid");
+  input.nextElementSibling.innerHTML = "";
+}
+
+function clearAuthErrors(inputs) {
+  inputs.forEach(clearFieldError);
+}
+
+function showLoginTab() {
+  if (window.jQuery && window.jQuery.fn && window.jQuery.fn.tab) {
+    window.jQuery("#nav-login-tab").tab("show");
+    return;
+  }
+
+  document.getElementById("nav-login-tab").classList.add("active");
+  document.getElementById("nav-register-tab").classList.remove("active");
+  document.getElementById("nav-login").classList.add("show", "active");
+  document.getElementById("nav-register").classList.remove("show", "active");
 }
 
 function register() {
-    var username = document.getElementById('registerUsername');
-    var password = document.getElementById('registerPassword');
-    var confirmPassword = document.getElementById('registerConfirmPassword');
+  var username = document.getElementById("registerUsername");
+  var password = document.getElementById("registerPassword");
+  var confirmPassword = document.getElementById("registerConfirmPassword");
 
-    username.classList.remove('is-invalid');
-    username.nextElementSibling.innerHTML = "";
+  clearAuthErrors([username, password, confirmPassword]);
 
-    password.classList.remove('is-invalid');
-    password.nextElementSibling.innerHTML = "";
+  if (username.value.trim().length === 0) {
+    setFieldError(username, "Username is required.");
+    return false;
+  }
 
-    confirmPassword.classList.remove('is-invalid');
-    confirmPassword.nextElementSibling.innerHTML = "";
+  var users = getUsers();
+  var exists = users.filter(function (item) {
+    return item.username === username.value.trim();
+  });
 
-    if (username.value.length === 0) {
-        username.classList.add('is-invalid');
-        username.nextElementSibling.innerHTML = "Username is required.";
-        return false;
-    }
+  if (exists.length > 0) {
+    setFieldError(username, "Username taken.");
+    return false;
+  }
 
-    var users = getUsers();
+  if (password.value.length < 6) {
+    setFieldError(password, "Must be at least 6 characters.");
+    return false;
+  }
 
-    var exists = users.filter(function (item) {
-        return item.username === username.value;
-    });
+  if (password.value !== confirmPassword.value) {
+    setFieldError(confirmPassword, "Passwords do not match.");
+    return false;
+  }
 
-    if (exists.length > 0) {
-        username.classList.add('is-invalid');
-        username.nextElementSibling.innerHTML = "Username taken.";
-        return false;
-    }
+  var registeredUser = {
+    username: username.value.trim(),
+    password: password.value,
+  };
 
-    if (password.value.length < 6) {
-        password.classList.add('is-invalid');
-        password.nextElementSibling.innerHTML = "Must be at least 6 characters.";
-        return false;
-    }
+  users.push(registeredUser);
+  localStorage.users = JSON.stringify(users);
 
-
-    if (password.value !== confirmPassword.value) {
-        confirmPassword.classList.add('is-invalid');
-        confirmPassword.nextElementSibling.innerHTML = "Passwords do not match.";
-        return false;
-    }
-
-    var registeredUser = {
-        username: username.value,
-        password: password.value
-    };
-
-    users.push(registeredUser);
-
-    localStorage.users = JSON.stringify(users);
-
-    window.currentUser = registeredUser;
-
-    goToLevel();
+  document.getElementById("loginForm").reset();
+  document.getElementById("registerForm").reset();
+  document.getElementById("idName").value = registeredUser.username;
+  showLoginTab();
+  setView("login");
+  showStatus("Account created. Please sign in to continue.", "success");
+  return true;
 }
 
 function login() {
-    var username = document.getElementById("idName");
-    var password = document.getElementById("idpassw");
+  var username = document.getElementById("idName").value.trim();
+  var password = document.getElementById("idpassw").value;
+  var users = getUsers();
+  var exists = users.filter(function (item) {
+    return item.username === username;
+  });
 
-    var users = getUsers();
+  if (exists.length === 1 && exists[0].password === password) {
+    window.currentUser = exists[0];
+    return true;
+  }
 
-    var exists = users.filter(function (item) {
-        return item.username === username.value;
-    });
-
-    if (
-        exists.length === 1 &&
-        exists[0].password === password.value
-    ) {
-        window.currentUser = exists[0];
-        return true;
-    }
-
-    return false;
+  return false;
 }
 
 function insert() {
-    var username = document.getElementById("idName");
-    var password = document.getElementById("idpassw");
+  var username = document.getElementById("idName");
+  var password = document.getElementById("idpassw");
 
-    username.classList.remove('is-invalid');
-    username.nextElementSibling.innerHTML = "";
+  clearAuthErrors([username, password]);
 
-    password.classList.remove('is-invalid');
-    password.nextElementSibling.innerHTML = "";
+  if (login()) {
+    showStatus("Signed in. Choose a board.", "success");
+    goToLevel();
+  } else {
+    setFieldError(username, "The credentials are incorrect.");
+    setFieldError(password, "The credentials are incorrect.");
+  }
+}
 
-    if (login()) {
-        goToLevel();
-    } else {
+function updateUserLabels() {
+  var username = window.currentUser.username || "Guest";
+  document.getElementById("level_username").innerText = username;
+  document.getElementById("game_username").innerText = username;
+}
 
-        username.classList.add('is-invalid');
-        username.nextElementSibling.innerHTML = "The credentials are incorrect.";
+function clearBoard() {
+  var board = document.getElementById("sudokuBoard");
+  board.innerHTML = "";
 
-        password.classList.add('is-invalid');
-        password.nextElementSibling.innerHTML = "The credentials are incorrect.";
-    }
+  var outcome = document.getElementById("gameOutcome");
+  outcome.className = "game-outcome";
+  outcome.textContent = "";
+}
 
+function stopTimer() {
+  clearInterval(window.gameState.timerId);
+  window.gameState.timerId = null;
+}
+
+function formatTime(totalSeconds) {
+  var minutes = Math.floor(totalSeconds / 60);
+  var seconds = totalSeconds % 60;
+  return (
+    String(minutes).padStart(2, "0") + ":" + String(seconds).padStart(2, "0")
+  );
+}
+
+function updateTimerLabel() {
+  document.getElementById("timerLabel").innerText = formatTime(
+    window.gameState.seconds,
+  );
+}
+
+function startTimer() {
+  stopTimer();
+  window.gameState.seconds = 0;
+  updateTimerLabel();
+  window.gameState.timerId = setInterval(function () {
+    window.gameState.seconds += 1;
+    updateTimerLabel();
+  }, 1000);
 }
 
 function goToLevel() {
-    // hide login & game
-    document.getElementById('login').style.display = 'none';
-    document.getElementById('game').style.display = 'none';
-
-    // set username
-    document.getElementById('level_username').innerText = window.currentUser.username;
-
-    // show level
-    document.getElementById('level').style.display = 'block';
+  stopTimer();
+  clearSelection();
+  clearBoard();
+  updateUserLabels();
+  setView("level");
 }
 
 function goToGame() {
-    // Hide level & login
-    document.getElementById('login').style.display = 'none';
-    document.getElementById('level').style.display = 'none';
-
-    // show game
-    document.getElementById('game').style.display = 'block';
+  updateUserLabels();
+  setView("game");
 }
 
-function rollDice() {
-
-    return (Math.floor(Math.random() * 81) + 1);
-
+function logout() {
+  stopTimer();
+  window.currentUser = {};
+  window.gameState = {
+    difficultyKey: null,
+    shownCount: null,
+    table: null,
+    hiddenCells: [],
+    selectedInput: null,
+    seconds: 0,
+    timerId: null,
+    completed: false,
+  };
+  clearBoard();
+  document.getElementById("loginForm").reset();
+  document.getElementById("registerForm").reset();
+  showStatus("Signed out.", "info");
+  setView("login");
 }
 
-function createTable(tableData, numbersShown, reset) {
+function shuffleArray(items) {
+  var array = items.slice();
+  for (var index = array.length - 1; index > 0; index--) {
+    var swapIndex = Math.floor(Math.random() * (index + 1));
+    var current = array[index];
+    array[index] = array[swapIndex];
+    array[swapIndex] = current;
+  }
+  return array;
+}
 
-    var table = document.createElement('table');
-    var tableBody = document.createElement('tbody');
+function buildHiddenCells(shownCount) {
+  var allIndexes = [];
+  for (var index = 1; index <= 81; index++) {
+    allIndexes.push(index);
+  }
 
-    table.className = 'table table-bordered';
+  return shuffleArray(allIndexes).slice(0, 81 - shownCount);
+}
 
+function getDifficultyName(levelKey) {
+  return window.levels.difficultyNames[levelKey] || "Custom";
+}
 
-    if (reset !== 'reset') {
+function getCellIndex(row, col) {
+  return row * 9 + col + 1;
+}
 
-        var hidden = [];
-        for (var n = 1; n <= (81 - numbersShown); n++) { //insert to hidden array random number that not appears more than once
+function clearSelection() {
+  document.querySelectorAll("#sudokuBoard td").forEach(function (cell) {
+    cell.classList.remove("is-selected");
+    cell.classList.remove("is-related");
+  });
 
-            do {
-                var diceRoll = rollDice();
+  window.gameState.selectedInput = null;
+  document.getElementById("activeCellLabel").innerText =
+    "Select an empty cell to start.";
+}
 
-            } while (hidden.indexOf(diceRoll) > -1);
+function selectInput(input) {
+  if (!input) {
+    return;
+  }
 
-            hidden.push(diceRoll);
+  clearSelection();
+  window.gameState.selectedInput = input;
 
-        }
+  var selectedCell = input.parentElement;
+  var row = selectedCell.dataset.row;
+  var col = selectedCell.dataset.cell;
+  var box = selectedCell.dataset.box;
 
-        window.h = hidden;
+  document.querySelectorAll("#sudokuBoard td").forEach(function (cell) {
+    if (
+      cell.dataset.row === row ||
+      cell.dataset.cell === col ||
+      cell.dataset.box === box
+    ) {
+      cell.classList.add("is-related");
     }
+  });
 
-    tableData.forEach(function (rowData, rowKey) {
-        var row = document.createElement('tr');
-        row.dataset.row = rowKey + 1;
+  selectedCell.classList.add("is-selected");
+  document.getElementById("activeCellLabel").innerText =
+    "Row " + row + ", column " + col + ".";
+}
 
-        rowData.forEach(function (cellData, cellKey) {
-            var cell = document.createElement('td');
-            cell.dataset.cell = cellKey + 1;
+function renderCellState(input) {
+  var cell = input.parentElement;
+  var answer = input.dataset.answer;
+  var value = input.value;
 
-            var current = (parseInt(row.dataset.row) * parseInt(cell.dataset.cell));
+  input.classList.remove("is-correct");
+  input.classList.remove("is-incorrect");
+  cell.classList.remove("has-correct");
+  cell.classList.remove("has-error");
 
-            var shouldHide = window.h.indexOf(current) > -1;
+  if (!value) {
+    return;
+  }
 
-            if (shouldHide) {
-                var input = document.createElement('INPUT');
-                input.type = 'text';
-                input.pattern = '\d'; // allow numeric input only
-                cell.appendChild(input);
-            } else {
-                cell.innerText = cellData;
-            }
-            row.appendChild(cell);
+  if (value === answer) {
+    input.classList.add("is-correct");
+    cell.classList.add("has-correct");
+  } else {
+    input.classList.add("is-incorrect");
+    cell.classList.add("has-error");
+  }
+}
 
+function updateBoardMetrics() {
+  var editableInputs = Array.from(document.querySelectorAll(".cell-input"));
+  var total = editableInputs.length;
+  var filled = editableInputs.filter(function (input) {
+    return input.value !== "";
+  }).length;
+  var mistakes = editableInputs.filter(function (input) {
+    return input.value !== "" && input.value !== input.dataset.answer;
+  }).length;
+  var progress = total ? Math.round((filled / total) * 100) : 100;
+
+  document.getElementById("progressValue").innerText = progress + "%";
+  document.getElementById("progressBar").style.width = progress + "%";
+  document.getElementById("mistakeCount").innerText = String(mistakes);
+
+  if (mistakes > 0) {
+    document.getElementById("boardStateLabel").innerText =
+      mistakes +
+      " cell" +
+      (mistakes === 1 ? "" : "s") +
+      " currently disagree with the solution.";
+  } else if (filled === total) {
+    document.getElementById("boardStateLabel").innerText =
+      "Board filled. Run a solution check.";
+  } else {
+    document.getElementById("boardStateLabel").innerText =
+      "Keep going. " +
+      (total - filled) +
+      " empty cell" +
+      (total - filled === 1 ? "" : "s") +
+      " left.";
+  }
+}
+
+function sanitizeValue(value) {
+  return value.replace(/[^1-9]/g, "").slice(0, 1);
+}
+
+function handleInputChange(event) {
+  var input = event.target;
+  input.value = sanitizeValue(input.value);
+  renderCellState(input);
+  updateBoardMetrics();
+}
+
+function moveSelection(rowOffset, colOffset) {
+  if (!window.gameState.selectedInput) {
+    return;
+  }
+
+  var cell = window.gameState.selectedInput.parentElement;
+  var targetRow = parseInt(cell.dataset.row, 10) + rowOffset;
+  var targetCol = parseInt(cell.dataset.cell, 10) + colOffset;
+  var selector =
+    '.cell-input[data-row="' + targetRow + '"][data-col="' + targetCol + '"]';
+  var next = document.querySelector(selector);
+
+  if (next) {
+    next.focus();
+    selectInput(next);
+  }
+}
+
+function handleInputKeydown(event) {
+  if (event.key === "ArrowUp") {
+    event.preventDefault();
+    moveSelection(-1, 0);
+  }
+
+  if (event.key === "ArrowDown") {
+    event.preventDefault();
+    moveSelection(1, 0);
+  }
+
+  if (event.key === "ArrowLeft") {
+    event.preventDefault();
+    moveSelection(0, -1);
+  }
+
+  if (event.key === "ArrowRight") {
+    event.preventDefault();
+    moveSelection(0, 1);
+  }
+
+  if (event.key === "Backspace" || event.key === "Delete") {
+    event.target.value = "";
+    renderCellState(event.target);
+    updateBoardMetrics();
+  }
+}
+
+function createTable(tableData) {
+  var board = document.getElementById("sudokuBoard");
+  var table = document.createElement("table");
+  var body = document.createElement("tbody");
+
+  tableData.forEach(function (rowData, rowIndex) {
+    var row = document.createElement("tr");
+
+    rowData.forEach(function (cellData, colIndex) {
+      var cell = document.createElement("td");
+      var cellIndex = getCellIndex(rowIndex, colIndex);
+      var boxIndex =
+        Math.floor(rowIndex / 3) * 3 + Math.floor(colIndex / 3) + 1;
+      var shouldHide = window.gameState.hiddenCells.indexOf(cellIndex) > -1;
+
+      cell.dataset.row = String(rowIndex + 1);
+      cell.dataset.cell = String(colIndex + 1);
+      cell.dataset.box = String(boxIndex);
+      cell.classList.add(shouldHide ? "is-editable" : "is-fixed");
+
+      if (shouldHide) {
+        var input = document.createElement("input");
+        input.type = "text";
+        input.inputMode = "numeric";
+        input.autocomplete = "off";
+        input.maxLength = 1;
+        input.className = "cell-input";
+        input.dataset.answer = cellData;
+        input.dataset.row = String(rowIndex + 1);
+        input.dataset.col = String(colIndex + 1);
+        input.setAttribute(
+          "aria-label",
+          "Row " + (rowIndex + 1) + " column " + (colIndex + 1),
+        );
+        input.addEventListener("focus", function (event) {
+          selectInput(event.target);
         });
+        input.addEventListener("click", function (event) {
+          selectInput(event.target);
+        });
+        input.addEventListener("input", handleInputChange);
+        input.addEventListener("keydown", handleInputKeydown);
+        cell.appendChild(input);
+      } else {
+        var fixedValue = document.createElement("span");
+        fixedValue.className = "fixed-value";
+        fixedValue.innerText = cellData;
+        cell.appendChild(fixedValue);
+      }
 
-        tableBody.appendChild(row);
+      row.appendChild(cell);
     });
 
-    table.appendChild(tableBody);
-    document.getElementById('sudokuBoard').appendChild(table);
+    body.appendChild(row);
+  });
+
+  table.appendChild(body);
+  board.appendChild(table);
+
+  var firstInput = document.querySelector(".cell-input");
+  if (firstInput) {
+    firstInput.focus();
+    selectInput(firstInput);
+  }
+
+  updateBoardMetrics();
 }
 
-function level(numLevel, table, reset) {
-    // Random number between 0 and max available tables
-    var random = Math.floor(Math.random() * window.levels.tables.length);
+function level(levelKey, table, resetMode) {
+  var random = Math.floor(Math.random() * window.levels.tables.length);
+  var shownCount = window.levels.levels[levelKey];
 
-    window.currentLevel = window.levels.levels[numLevel];
-    window.currentTable = table || window.levels.tables[random];
+  if (!shownCount) {
+    return;
+  }
 
-    createTable(window.currentTable, window.currentLevel, reset);
+  window.gameState.difficultyKey = levelKey;
+  window.gameState.shownCount = shownCount;
+  window.gameState.table = table || window.levels.tables[random];
+  window.gameState.completed = false;
 
-    goToGame();
+  if (resetMode !== "reset") {
+    window.gameState.hiddenCells = buildHiddenCells(shownCount);
+  }
+
+  clearBoard();
+  clearSelection();
+  document.getElementById("difficultyLabel").innerText =
+    getDifficultyName(levelKey);
+  createTable(window.gameState.table);
+  startTimer();
+  goToGame();
+  showStatus("New puzzle ready.", "info");
 }
 
-function checkRow(mat, arr_checkNumber) {
-    var count = 0;
-    var isOk = true;
+function checkUnit(values) {
+  if (values.length !== 9) {
+    return false;
+  }
 
-    for (var row = 0; row < mat.length; row++) {
-        for (var i = 0; i < arr_checkNumber.length; i++) {
-            for (var col = 0; col < mat.length; col++) {
-                if (mat[row][col] === arr_checkNumber[i]) {
-                    count++;
-                }
-
-                if (count > 1) {
-                    isOk = false;
-                }
-
-            }
-            count = 0;
-        }
-    }
-
-    return isOk;
-
+  var expected = "123456789";
+  var actual = values.slice().sort().join("");
+  return actual === expected;
 }
 
-function checkCol(mat, arr_checkNumber) {
-    var count = 0;
-    var isOk = true;
-
-    for (var col = 0; col < mat.length; col++) {
-        for (var i = 0; i < arr_checkNumber.length; i++) {
-            for (var row = 0; row < mat.length; row++) {
-                if (mat[row][col] === arr_checkNumber[i]) {
-                    count++;
-                }
-
-                if (count > 1) {
-                    isOk = false;
-                }
-
-            }
-            count = 0;
-        }
-    }
-
-    return isOk;
-
+function checkRow(mat) {
+  return mat.every(checkUnit);
 }
 
-function checkSquare(mat, arr_checkNumber) {
-
-    var count = 0;
-    var col = 0;
-    var row = 0;
-
-    for (var i = 0; i < arr_checkNumber.length; i++) {
-        for (row = 0; row < 3; row++) {
-            for (col = 0; col < 3; col++) {
-                if (mat[row][col] === arr_checkNumber[i]) {
-                    count++;
-                }
-
-                if (count > 1) {
-
-                    return false;
-                }
-            }
-
-        }
-        count = 0;
+function checkCol(mat) {
+  for (var col = 0; col < 9; col++) {
+    var values = [];
+    for (var row = 0; row < 9; row++) {
+      values.push(mat[row][col]);
     }
-
-    count = 0;
-    col = 0;
-    row = 0;
-
-    for (i = 0; i < arr_checkNumber.length; i++) {
-        for (row = 3; row < 6; row++) {
-            for (col = 0; col < 3; col++) {
-                if (mat[row][col] === arr_checkNumber[i]) {
-                    count++;
-                }
-
-                if (count > 1) {
-
-                    return false;
-                }
-            }
-
-        }
-        count = 0;
+    if (!checkUnit(values)) {
+      return false;
     }
+  }
+  return true;
+}
 
-    count = 0;
-    col = 0;
-    row = 0;
-
-    for (i = 0; i < arr_checkNumber.length; i++) {
-        for (row = 6; row < 9; row++) {
-            for (col = 0; col < 3; col++) {
-                if (mat[row][col] === arr_checkNumber[i]) {
-                    count++;
-                }
-
-                if (count > 1) {
-
-                    return false;
-                }
-            }
-
+function checkSquare(mat) {
+  for (var startRow = 0; startRow < 9; startRow += 3) {
+    for (var startCol = 0; startCol < 9; startCol += 3) {
+      var values = [];
+      for (var row = startRow; row < startRow + 3; row++) {
+        for (var col = startCol; col < startCol + 3; col++) {
+          values.push(mat[row][col]);
         }
-        count = 0;
+      }
+      if (!checkUnit(values)) {
+        return false;
+      }
     }
-
-    count = 0;
-    col = 0;
-    row = 0;
-
-    for (i = 0; i < arr_checkNumber.length; i++) {
-        for (row = 0; row < 3; row++) {
-            for (col = 3; col < 6; col++) {
-                if (mat[row][col] === arr_checkNumber[i]) {
-                    count++;
-                }
-
-                if (count > 1) {
-
-                    return false;
-                }
-            }
-
-        }
-        count = 0;
-    }
-
-    count = 0;
-    col = 0;
-    row = 0;
-
-    for (i = 0; i < arr_checkNumber.length; i++) {
-        for (row = 3; row < 6; row++) {
-            for (col = 3; col < 6; col++) {
-                if (mat[row][col] === arr_checkNumber[i]) {
-                    count++;
-                }
-
-                if (count > 1) {
-
-                    return false;
-                }
-            }
-
-        }
-        count = 0;
-    }
-
-    count = 0;
-    col = 0;
-    row = 0;
-
-    for (i = 0; i < arr_checkNumber.length; i++) {
-        for (row = 6; row < 9; row++) {
-            for (col = 3; col < 6; col++) {
-                if (mat[row][col] === arr_checkNumber[i]) {
-                    count++;
-                }
-
-                if (count > 1) {
-
-                    return false;
-                }
-            }
-
-        }
-        count = 0;
-    }
-
-    count = 0;
-    col = 0;
-    row = 0;
-
-    for (i = 0; i < arr_checkNumber.length; i++) {
-        for (row = 0; row < 3; row++) {
-            for (col = 6; col < 9; col++) {
-                if (mat[row][col] === arr_checkNumber[i]) {
-                    count++;
-                }
-
-                if (count > 1) {
-
-                    return false;
-                }
-            }
-
-        }
-        count = 0;
-    }
-
-    count = 0;
-    col = 0;
-    row = 0;
-
-    for (i = 0; i < arr_checkNumber.length; i++) {
-        for (row = 3; row < 6; row++) {
-            for (col = 6; col < 9; col++) {
-                if (mat[row][col] === arr_checkNumber[i]) {
-                    count++;
-                }
-
-                if (count > 1) {
-
-                    return false;
-                }
-            }
-
-        }
-        count = 0;
-    }
-
-    count = 0;
-    col = 0;
-    row = 0;
-
-    for (i = 0; i < arr_checkNumber.length; i++) {
-        for (row = 6; row < 9; row++) {
-            for (col = 6; col < 9; col++) {
-                if (mat[row][col] === arr_checkNumber[i]) {
-                    count++;
-                }
-
-                if (count > 1) {
-
-                    return false;
-                }
-            }
-
-        }
-        count = 0;
-    }
-
-    return true;
-
+  }
+  return true;
 }
 
 function checkIfEmpty(mat) {
-
-    for (var row = 0; row < mat.length; row++) {
-        for (var col = 0; col < mat.length; col++) {
-            if (mat[row][col] === null) {
-                return false;
-            }
-
-        }
-    }
-    return true;
+  return mat.every(function (row) {
+    return row.every(function (value) {
+      return value !== null;
+    });
+  });
 }
 
 function tableToArray() {
-    var testArray = [
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        []
-    ];
+  var matrix = [[], [], [], [], [], [], [], [], []];
 
+  document.querySelectorAll("#sudokuBoard td").forEach(function (cell) {
+    var row = parseInt(cell.dataset.row, 10) - 1;
+    var col = parseInt(cell.dataset.cell, 10) - 1;
+    var input = cell.querySelector("input");
+    var value = input
+      ? parseInt(input.value, 10)
+      : parseInt(cell.innerText, 10);
+    matrix[row][col] = Number.isNaN(value) ? null : value;
+  });
 
-    document.querySelectorAll('#sudokuBoard td').forEach(function (item, key) {
-        var row = parseInt(item.parentElement.dataset.row) - 1;
-        var cell = parseInt(item.dataset.cell) - 1;
-        var value = parseInt(item.children.length ? item.children[0].value : item.innerText);
-        testArray[row][cell] = value || null;
-    });
-
-    return testArray;
+  return matrix;
 }
 
 function checkTable(mat) {
-    var arr_checkNumber = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  return (
+    checkIfEmpty(mat) && checkRow(mat) && checkCol(mat) && checkSquare(mat)
+  );
+}
 
-    if (!checkRow(mat, arr_checkNumber)) {
-        console.log("not ok");
-        return false;
-    }
+function showOutcome(message, tone) {
+  var outcome = document.getElementById("gameOutcome");
+  outcome.className = "game-outcome is-visible outcome-" + tone;
+  outcome.textContent = message;
+}
 
-    if (!checkCol(mat, arr_checkNumber)) {
-        console.log("not ok");
-        return false;
-    }
+function lockBoard() {
+  document.querySelectorAll(".cell-input").forEach(function (input) {
+    input.disabled = true;
+  });
+}
 
-    if (!checkSquare(mat, arr_checkNumber)) {
-        console.log("not ok");
-        return false;
-    }
+function revealSolution() {
+  var editableInputs = document.querySelectorAll(".cell-input");
 
-    if (!checkIfEmpty(mat)) {
-        console.log("not ok");
-        return false;
-    }
+  if (!window.gameState.table || editableInputs.length === 0) {
+    return;
+  }
 
-    console.log("ok");
-    return true;
+  editableInputs.forEach(function (input) {
+    input.value = input.dataset.answer;
+    renderCellState(input);
+  });
 
+  stopTimer();
+  lockBoard();
+  window.gameState.completed = true;
+  updateBoardMetrics();
+  clearSelection();
+
+  showOutcome(
+    "Solution revealed for " +
+      getDifficultyName(window.gameState.difficultyKey) +
+      ". Start a new puzzle whenever you are ready.",
+    "info",
+  );
+  showStatus("Solution revealed.", "info");
 }
 
 function finish() {
+  var board = tableToArray();
 
-    if (checkTable(tableToArray())) {
-        alert('You Win! ☺');
-    } else {
-        alert('You Lose! please try again ...');
-    }
-
-    var div = document.getElementById('sudokuBoard');
-    var tableE = div.querySelector('table');
-    div.removeChild(tableE);
-    goToLevel();
+  if (checkTable(board)) {
+    window.gameState.completed = true;
+    stopTimer();
+    lockBoard();
+    showOutcome(
+      "Solved cleanly in " +
+        formatTime(window.gameState.seconds) +
+        ". Pick another difficulty or start a fresh puzzle.",
+      "success",
+    );
+    showStatus("Puzzle solved.", "success");
+  } else {
+    var mistakes = document.querySelectorAll(".cell-input.is-incorrect").length;
+    showOutcome(
+      mistakes > 0
+        ? "There are still incorrect cells on the board. Fix the highlighted entries and try again."
+        : "The board is not complete yet. Fill the remaining empty cells and check again.",
+      "error",
+    );
+    showStatus("Solution check failed.", "error");
+  }
 }
 
 function reset() {
-    var div = document.getElementById('sudokuBoard');
-    var tableE = div.querySelector('table');
-    div.removeChild(tableE);
+  if (!window.gameState.difficultyKey || !window.gameState.table) {
+    return;
+  }
 
-    level(window.currentLevel, window.currentTable, 'reset');
+  level(window.gameState.difficultyKey, window.gameState.table, "reset");
+  showStatus("Puzzle reset to its original empty cells.", "info");
 }
 
-// show login
-document.getElementById('login').style.display = 'block';
+function newPuzzle() {
+  if (!window.gameState.difficultyKey) {
+    return;
+  }
+
+  level(window.gameState.difficultyKey);
+}
+
+function applyKeypadValue(value) {
+  var input = window.gameState.selectedInput;
+  if (!input || input.disabled) {
+    showStatus("Select an empty cell first.", "info");
+    return;
+  }
+
+  input.value = value === "clear" ? "" : value;
+  renderCellState(input);
+  updateBoardMetrics();
+  input.focus();
+}
+
+function setupKeypad() {
+  document.getElementById("keypad").addEventListener("click", function (event) {
+    var button = event.target.closest("button[data-value]");
+    if (!button) {
+      return;
+    }
+
+    applyKeypadValue(button.dataset.value);
+  });
+}
+
+function setupForms() {
+  document
+    .getElementById("loginForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+      insert();
+    });
+
+  document
+    .getElementById("registerForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+      register();
+    });
+}
+
+function initialize() {
+  setupForms();
+  setupKeypad();
+  updateTimerLabel();
+  setView("login");
+}
+
+initialize();

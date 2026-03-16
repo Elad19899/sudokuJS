@@ -1,151 +1,428 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
-    <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
     <title>sudokuJS</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- Styles -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous"
+    />
 
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js"
-        integrity="sha384-7aThvCh9TypR7fIc2HV4O/nFMVCBwyIUKL8XCtKE+8xgCgl/PQGuFsvShjr74PBp" crossorigin="anonymous">
-    </script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js"
+      integrity="sha384-7aThvCh9TypR7fIc2HV4O/nFMVCBwyIUKL8XCtKE+8xgCgl/PQGuFsvShjr74PBp"
+      crossorigin="anonymous"
+    ></script>
 
     <link rel="stylesheet" href="sudokuJS.css" />
-</head>
+  </head>
 
-<body>
-    <div id="login">
+  <body>
+    <div class="app-shell">
+      <div class="ambient ambient-one"></div>
+      <div class="ambient ambient-two"></div>
+      <div class="ambient ambient-three"></div>
+
+      <div
+        id="statusBanner"
+        class="status-banner"
+        role="status"
+        aria-live="polite"
+      ></div>
+
+      <section id="login" class="screen screen-auth">
         <div class="container">
-            <h1 class="text-center">Sudoku Game</h1>
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-4">
-                    <nav>
-                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-login-tab" data-toggle="tab"
-                                href="#nav-login">Login</a>
-                            <a class="nav-item nav-link" id="nav-register-tab" data-toggle="tab"
-                                href="#nav-register">Register</a>
-                        </div>
-                    </nav>
-                    <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-login">
-                            <form action="#">
-                                <div class="form-group">
-                                    <label for="idName">User Name:</label>
-                                    <input type="text" name="userName" id="idName" class="form-control"
-                                        placeholder="User Name" value="" />
-                                    <div class="invalid-feedback"></div>
-                                </div>
+          <div class="auth-layout">
+            <div class="hero-panel surface-panel">
+              <p class="eyebrow">Sudoku, reimagined</p>
+              <h1>Fast board. Sharp feedback. Zero clunky moments.</h1>
+              <p class="hero-copy">
+                Sign in and play a cleaner Sudoku experience with live progress,
+                better focus states, and a board that works as well on mobile as
+                it does on desktop.
+              </p>
 
-                                <div class="form-group">
-                                    <label for="idpassw">Password:</label>
-                                    <input type="password" name="password" id="idpassw" class="form-control"
-                                        placeholder="Password" value="" />
-                                    <div class="invalid-feedback"></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <button type="button" onclick="insert()" class="btn btn-primary">
-                                        Enter
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="tab-pane fade" id="nav-register">
-                            <form action="#">
-                                <div class="form-group">
-                                    <label for="registerUsername">User Name:</label>
-                                    <input type="text" name="userName" id="registerUsername" class="form-control"
-                                        placeholder="User Name" />
-                                    <div class="invalid-feedback"></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="registerPassword">Password:</label>
-                                    <input type="password" name="password" id="registerPassword" class="form-control"
-                                        placeholder="Password" />
-                                    <div class="invalid-feedback"></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="registerConfirmPassword">Confirm Password:</label>
-                                    <input type="password" name="password" id="registerConfirmPassword"
-                                        class="form-control" placeholder="Password" />
-                                    <div class="invalid-feedback"></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <button type="button" onclick="register()" class="btn btn-primary">
-                                        Register
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+              <div class="hero-highlights">
+                <div class="highlight-card">
+                  <span class="highlight-value">Live</span>
+                  <span class="highlight-label">Progress tracking</span>
                 </div>
+                <div class="highlight-card">
+                  <span class="highlight-value">Smart</span>
+                  <span class="highlight-label">Cell validation</span>
+                </div>
+                <div class="highlight-card">
+                  <span class="highlight-value">Mobile</span>
+                  <span class="highlight-label">Friendly keypad</span>
+                </div>
+              </div>
             </div>
+
+            <div class="auth-panel surface-panel">
+              <div class="panel-heading">
+                <p class="eyebrow">Player access</p>
+                <h2>Enter the puzzle room</h2>
+              </div>
+
+              <nav>
+                <div class="nav nav-tabs auth-tabs" id="nav-tab" role="tablist">
+                  <a
+                    class="nav-item nav-link active"
+                    id="nav-login-tab"
+                    data-toggle="tab"
+                    href="#nav-login"
+                    >Login</a
+                  >
+                  <a
+                    class="nav-item nav-link"
+                    id="nav-register-tab"
+                    data-toggle="tab"
+                    href="#nav-register"
+                    >Register</a
+                  >
+                </div>
+              </nav>
+
+              <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-login">
+                  <form action="#" class="auth-form" id="loginForm">
+                    <div class="form-group">
+                      <label for="idName">User Name</label>
+                      <input
+                        type="text"
+                        name="userName"
+                        id="idName"
+                        class="form-control"
+                        placeholder="Type your user name"
+                        value=""
+                        autocomplete="username"
+                      />
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="idpassw">Password</label>
+                      <input
+                        type="password"
+                        name="password"
+                        id="idpassw"
+                        class="form-control"
+                        placeholder="Type your password"
+                        value=""
+                        autocomplete="current-password"
+                      />
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="form-group mb-0">
+                      <button
+                        type="button"
+                        onclick="insert()"
+                        class="btn btn-primary btn-block action-btn"
+                      >
+                        Start Playing
+                      </button>
+                    </div>
+                  </form>
+                </div>
+
+                <div class="tab-pane fade" id="nav-register">
+                  <form action="#" class="auth-form" id="registerForm">
+                    <div class="form-group">
+                      <label for="registerUsername">User Name</label>
+                      <input
+                        type="text"
+                        name="userName"
+                        id="registerUsername"
+                        class="form-control"
+                        placeholder="Choose a user name"
+                        autocomplete="username"
+                      />
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="registerPassword">Password</label>
+                      <input
+                        type="password"
+                        name="password"
+                        id="registerPassword"
+                        class="form-control"
+                        placeholder="Use at least 6 characters"
+                        autocomplete="new-password"
+                      />
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="registerConfirmPassword"
+                        >Confirm Password</label
+                      >
+                      <input
+                        type="password"
+                        name="password"
+                        id="registerConfirmPassword"
+                        class="form-control"
+                        placeholder="Repeat your password"
+                        autocomplete="new-password"
+                      />
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="form-group mb-0">
+                      <button
+                        type="button"
+                        onclick="register()"
+                        class="btn btn-primary btn-block action-btn"
+                      >
+                        Create Account
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
+      </section>
 
-    <div id="level">
+      <section id="level" class="screen screen-level">
         <div class="container">
-            <h1 class="text-center">
-                Welcome
-                <span id="level_username"></span>
-            </h1>
+          <div class="surface-panel level-panel">
+            <div class="panel-heading centered">
+              <p class="eyebrow">Choose your pace</p>
+              <h1>Welcome back, <span id="level_username"></span></h1>
+              <p class="section-copy">
+                Pick a difficulty and get a board tuned for that tempo. More
+                clues means a quicker warm-up. Fewer clues means more precise
+                play.
+              </p>
+            </div>
 
-            <p>
-                Level difficulty
-            </p>
+            <div class="difficulty-grid">
+              <button type="button" class="difficulty-card" onclick="level(1)">
+                <span class="difficulty-title">Level 1</span>
+                <strong>Easy Flow</strong>
+                <span class="difficulty-copy"
+                  >60 clues visible. Best for fast starts and relaxed
+                  solving.</span
+                >
+              </button>
+              <button type="button" class="difficulty-card" onclick="level(2)">
+                <span class="difficulty-title">Level 2</span>
+                <strong>Balanced Mode</strong>
+                <span class="difficulty-copy"
+                  >40 clues visible. Enough structure to reward good pattern
+                  reading.</span
+                >
+              </button>
+              <button type="button" class="difficulty-card" onclick="level(3)">
+                <span class="difficulty-title">Level 3</span>
+                <strong>Expert Pressure</strong>
+                <span class="difficulty-copy"
+                  >20 clues visible. Sparse board, higher attention cost.</span
+                >
+              </button>
+            </div>
 
-            <div class="buttonLevel">
-                <button type="button" class="btn btn-primary btn-lg" onclick="level(1)">
+            <div class="level-footer-actions">
+              <button
+                type="button"
+                class="btn btn-outline-light ghost-btn"
+                onclick="logout()"
+              >
+                Switch Player
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="game" class="screen screen-game">
+        <div class="container">
+          <div class="game-layout">
+            <aside class="surface-panel game-sidebar">
+              <div>
+                <p class="eyebrow">Current run</p>
+                <h2>Precision Mode</h2>
+                <p class="section-copy">
+                  Focus a cell, use the keypad if needed, and let the board
+                  guide you.
+                </p>
+              </div>
+
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <span class="stat-label">Player</span>
+                  <strong id="game_username">Guest</strong>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-label">Difficulty</span>
+                  <strong id="difficultyLabel">Level 1</strong>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-label">Time</span>
+                  <strong id="timerLabel">00:00</strong>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-label">Errors</span>
+                  <strong id="mistakeCount">0</strong>
+                </div>
+              </div>
+
+              <div class="progress-panel">
+                <div class="progress-copy">
+                  <span>Completion</span>
+                  <strong id="progressValue">0%</strong>
+                </div>
+                <div class="progress-track">
+                  <div id="progressBar" class="progress-fill"></div>
+                </div>
+              </div>
+
+              <div class="focus-panel">
+                <span class="focus-label">Focus</span>
+                <strong id="activeCellLabel"
+                  >Select an empty cell to start.</strong
+                >
+              </div>
+
+              <div class="action-stack">
+                <button
+                  type="button"
+                  class="btn btn-primary btn-block action-btn"
+                  onclick="finish()"
+                >
+                  Check Solution
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-light btn-block ghost-btn"
+                  onclick="revealSolution()"
+                >
+                  Show Solution
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-light btn-block ghost-btn"
+                  onclick="reset()"
+                >
+                  Reset Puzzle
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-light btn-block ghost-btn"
+                  onclick="newPuzzle()"
+                >
+                  New Puzzle
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-light btn-block ghost-btn"
+                  onclick="goToLevel()"
+                >
+                  Back To Levels
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-light btn-block ghost-btn"
+                  onclick="logout()"
+                >
+                  Logout
+                </button>
+              </div>
+
+              <div class="keypad-panel">
+                <div class="keypad-heading">
+                  <span>Quick keypad</span>
+                  <small>Works well on touch screens.</small>
+                </div>
+                <div class="keypad" id="keypad">
+                  <button type="button" class="keypad-btn" data-value="1">
                     1
-                </button>
-                <button type="button" class="btn btn-primary btn-lg" onclick="level(2)">
+                  </button>
+                  <button type="button" class="keypad-btn" data-value="2">
                     2
-                </button>
-                <button type="button" class="btn btn-primary btn-lg" onclick="level(3)">
+                  </button>
+                  <button type="button" class="keypad-btn" data-value="3">
                     3
-                </button>
-            </div>
-        </div>
-    </div>
+                  </button>
+                  <button type="button" class="keypad-btn" data-value="4">
+                    4
+                  </button>
+                  <button type="button" class="keypad-btn" data-value="5">
+                    5
+                  </button>
+                  <button type="button" class="keypad-btn" data-value="6">
+                    6
+                  </button>
+                  <button type="button" class="keypad-btn" data-value="7">
+                    7
+                  </button>
+                  <button type="button" class="keypad-btn" data-value="8">
+                    8
+                  </button>
+                  <button type="button" class="keypad-btn" data-value="9">
+                    9
+                  </button>
+                  <button
+                    type="button"
+                    class="keypad-btn keypad-btn-wide"
+                    data-value="clear"
+                  >
+                    Clear
+                  </button>
+                </div>
+              </div>
+            </aside>
 
-    <div id="game">
-        <h1 class="text-center">Good Luck!</h1>
+            <main class="surface-panel board-panel">
+              <div class="board-header">
+                <div>
+                  <p class="eyebrow">Board status</p>
+                  <h1>Good luck.</h1>
+                </div>
+                <div class="board-chip" id="boardStateLabel">
+                  Fill the empty cells with digits 1 to 9.
+                </div>
+              </div>
 
-        <div class="container">
-            <div class="d-flex justify-content-center">
-                <div id="sudokuBoard" class="text-center"></div>
-            </div>
+              <div id="sudokuBoard" class="text-center"></div>
+              <div id="gameOutcome" class="game-outcome"></div>
+            </main>
+          </div>
         </div>
-
-        <div class="bthFinish_again">
-            <button type="button" class="btn btn-primary btn-lg" onclick="finish()">
-                Finish
-            </button>
-            <button type="button" class="btn btn-primary btn-lg" onclick="reset()">
-                Reset
-            </button>
-        </div>
+      </section>
     </div>
 
     <script src="sudokuJS.js"></script>
-</body>
-
+  </body>
 </html>

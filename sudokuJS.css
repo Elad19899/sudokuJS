@@ -1,93 +1,701 @@
+:root {
+  --bg: #07111f;
+  --bg-soft: rgba(10, 23, 38, 0.72);
+  --panel: rgba(8, 20, 33, 0.74);
+  --panel-strong: rgba(9, 18, 30, 0.92);
+  --line: rgba(255, 255, 255, 0.1);
+  --text: #f4f7fb;
+  --muted: #aab8ca;
+  --accent: #ff8f3d;
+  --accent-strong: #ff6a00;
+  --accent-soft: rgba(255, 143, 61, 0.2);
+  --success: #44d19f;
+  --danger: #ff6f7d;
+  --focus: #53d6ff;
+  --fixed: #d9e4f2;
+  --editable: #fdf4ea;
+  --shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
 body {
-    font-family: cursive;
-    background: url(https://twt-media.washtimes.com/media/image/2018/10/08/sudoku-900.jpg);
-    background-size: cover;
-    background-position: center;
+  min-height: 100%;
 }
 
-#login,
-#level,
-#game {
-    display: none;
-    min-height: 100vh;
-    text-align: center;
-    font-family: Comic Sans MS;
-
+body {
+  margin: 0;
+  color: var(--text);
+  font-family: "Manrope", sans-serif;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(55, 115, 255, 0.22),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(255, 143, 61, 0.18),
+      transparent 24%
+    ),
+    linear-gradient(135deg, #06111d 0%, #10243a 48%, #07111f 100%);
+  overflow-x: hidden;
 }
 
-form {
-    background-color: rgba(255, 255, 255, 0.85);
-    padding: 1em;
-    padding-top: 5px;
+button,
+input,
+label {
+  font: inherit;
+}
 
+h1,
+h2,
+strong {
+  font-family: "Space Grotesk", sans-serif;
+  letter-spacing: -0.04em;
 }
 
 p {
-    text-align: center;
+  margin: 0;
 }
 
-.buttonLevel {
-    text-align: center;
-    width: 100%;
+.app-shell {
+  position: relative;
+  min-height: 100vh;
+  padding: 32px 0 40px;
 }
 
-#level h1 {
-    background-color: rgba(255, 255, 255, 0.85);
+.ambient {
+  position: fixed;
+  z-index: 0;
+  border-radius: 999px;
+  filter: blur(8px);
+  opacity: 0.55;
+  pointer-events: none;
 }
 
-.table {
-    background-color: #b3d7ff;
+.ambient-one {
+  top: -80px;
+  left: -60px;
+  width: 220px;
+  height: 220px;
+  background: rgba(83, 214, 255, 0.12);
 }
 
-.cell input {
-    display: inline-block;
+.ambient-two {
+  right: 8%;
+  top: 18%;
+  width: 180px;
+  height: 180px;
+  background: rgba(255, 143, 61, 0.12);
+}
 
+.ambient-three {
+  left: 18%;
+  bottom: 4%;
+  width: 280px;
+  height: 280px;
+  background: rgba(68, 209, 159, 0.08);
+}
 
-    border: 1px solid black;
-    width: 40px;
-    height: 40px;
+.container {
+  position: relative;
+  z-index: 1;
+}
 
-    text-align: center;
-    font-size: 30px;
+.screen {
+  display: none;
+  min-height: calc(100vh - 72px);
+  align-items: center;
+}
+
+.surface-panel {
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.02)
+  );
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(24px);
+}
+
+.status-banner {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  z-index: 5;
+  min-width: min(92vw, 440px);
+  max-width: min(92vw, 440px);
+  padding: 14px 18px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: rgba(7, 17, 31, 0.92);
+  color: var(--text);
+  text-align: center;
+  transform: translate(-50%, -140%);
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease;
+}
+
+.status-banner.is-visible {
+  transform: translate(-50%, 0);
+}
+
+.status-banner.status-success {
+  border-color: rgba(68, 209, 159, 0.45);
+}
+
+.status-banner.status-error {
+  border-color: rgba(255, 111, 125, 0.45);
+}
+
+.status-banner.status-info {
+  border-color: rgba(83, 214, 255, 0.45);
+}
+
+.eyebrow {
+  margin-bottom: 10px;
+  color: #86e6ff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.panel-heading h1,
+.panel-heading h2,
+.hero-panel h1,
+.board-header h1,
+.game-sidebar h2 {
+  margin: 0;
+  line-height: 0.95;
+}
+
+.hero-copy,
+.section-copy,
+.difficulty-copy,
+.keypad-heading small {
+  color: var(--muted);
+}
+
+.auth-layout {
+  display: grid;
+  grid-template-columns: 1.15fr 0.95fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.hero-panel,
+.auth-panel,
+.level-panel,
+.game-sidebar,
+.board-panel {
+  padding: 28px;
+}
+
+.hero-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 580px;
+}
+
+.hero-panel h1 {
+  max-width: 12ch;
+  font-size: clamp(3rem, 5vw, 4.8rem);
+}
+
+.hero-copy {
+  max-width: 54ch;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.hero-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.highlight-card,
+.stat-card,
+.focus-panel,
+.progress-panel {
+  padding: 16px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.highlight-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.highlight-value {
+  color: #fff2e6;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.2rem;
+}
+
+.highlight-label,
+.stat-label,
+.focus-label,
+.progress-copy span {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.auth-panel {
+  min-height: 580px;
+}
+
+.auth-tabs {
+  margin-top: 22px;
+  border-bottom: 0;
+  gap: 12px;
+}
+
+.auth-tabs .nav-link {
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 16px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.auth-tabs .nav-link.active {
+  color: var(--text);
+  background: rgba(255, 143, 61, 0.18);
+}
+
+.auth-form {
+  margin-top: 24px;
+  background: transparent;
+  padding: 0;
+}
+
+.form-group {
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #dbe4f1;
+}
+
+.form-control {
+  height: auto;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+}
+
+.form-control:focus {
+  border-color: rgba(83, 214, 255, 0.65);
+  box-shadow: 0 0 0 0.2rem rgba(83, 214, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+
+.form-control::placeholder {
+  color: rgba(219, 228, 241, 0.45);
+}
+
+.action-btn,
+.ghost-btn,
+.difficulty-card,
+.keypad-btn {
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.action-btn {
+  padding: 14px 18px;
+  border: 0;
+  border-radius: 16px;
+  background: linear-gradient(
+    135deg,
+    var(--accent) 0%,
+    var(--accent-strong) 100%
+  );
+  box-shadow: 0 18px 30px rgba(255, 106, 0, 0.22);
+}
+
+.ghost-btn {
+  border-radius: 16px;
+  border-color: rgba(255, 255, 255, 0.18);
+  color: var(--text);
+  background: transparent;
+}
+
+.action-btn:hover,
+.ghost-btn:hover,
+.difficulty-card:hover,
+.keypad-btn:hover {
+  transform: translateY(-2px);
+}
+
+.level-panel {
+  padding: 34px;
+}
+
+.centered {
+  text-align: center;
+}
+
+.difficulty-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 26px;
+}
+
+.difficulty-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  color: var(--text);
+  text-align: left;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.02)
+  );
+}
+
+.difficulty-card strong {
+  font-size: 1.45rem;
+}
+
+.difficulty-title {
+  color: #86e6ff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.level-footer-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.game-layout {
+  display: grid;
+  grid-template-columns: 360px minmax(0, 1fr);
+  gap: 24px;
+}
+
+.game-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.stat-card strong,
+.focus-panel strong,
+.progress-copy strong {
+  display: block;
+  margin-top: 8px;
+  color: var(--text);
+  font-size: 1.1rem;
+}
+
+.progress-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.progress-copy {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progress-track {
+  width: 100%;
+  height: 12px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.progress-fill {
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #53d6ff 0%, #ff8f3d 100%);
+  transition: width 180ms ease;
+}
+
+.focus-panel {
+  min-height: 108px;
+}
+
+.action-stack .btn + .btn {
+  margin-top: 10px;
+}
+
+.keypad-panel {
+  margin-top: auto;
+}
+
+.keypad-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.keypad-btn {
+  padding: 14px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+}
+
+.keypad-btn-wide {
+  grid-column: span 3;
+}
+
+.board-panel {
+  padding: 28px;
+}
+
+.board-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.board-chip {
+  max-width: 320px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
 }
 
 #sudokuBoard {
-    width: 500px;
-    max-width: 100%;
+  width: min(100%, 720px);
+  margin: 0 auto;
 }
 
-#sudokuBoard table td:nth-child(3n+1) {
-    border-left: 2px solid black;
+#sudokuBoard table {
+  width: 100%;
+  table-layout: fixed;
+  margin-bottom: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.05);
 }
 
-
-#sudokuBoard table td:nth-child(3n+3) {
-    border-right: 2px solid black;
+#sudokuBoard td {
+  position: relative;
+  width: 11.11%;
+  height: 72px;
+  padding: 0;
+  border: 1px solid rgba(8, 19, 31, 0.22);
+  background: rgba(255, 248, 240, 0.92);
+  transition:
+    background 140ms ease,
+    transform 140ms ease,
+    box-shadow 140ms ease;
 }
 
-
-#sudokuBoard table tr:first-child {
-    border-top: 2px solid black;
+#sudokuBoard td.is-fixed {
+  background: rgba(226, 235, 245, 0.96);
+  color: #0b2237;
 }
 
-#sudokuBoard table tr:nth-child(3) {
-    border-bottom: 2px solid black;
+#sudokuBoard td.is-editable {
+  background: rgba(255, 248, 240, 0.96);
 }
 
-#sudokuBoard table tr:nth-child(6) {
-    border-bottom: 2px solid black;
+#sudokuBoard td.is-related {
+  background: rgba(198, 242, 255, 0.96);
 }
 
-
-#sudokuBoard table tr:last-child {
-    border-bottom: 2px solid black;
+#sudokuBoard td.is-selected {
+  z-index: 1;
+  background: rgba(255, 224, 197, 0.98);
+  box-shadow: inset 0 0 0 2px rgba(255, 106, 0, 0.55);
 }
 
+#sudokuBoard td.has-error {
+  background: rgba(255, 228, 231, 0.98);
+}
 
+#sudokuBoard td.has-correct {
+  background: rgba(227, 251, 242, 0.98);
+}
 
-#sudokuBoard table input {
-    background: transparent;
-    border: 0;
-    width: 1ch;
-    outline: 0;
+#sudokuBoard td:nth-child(3n + 1) {
+  border-left-width: 3px;
+}
+
+#sudokuBoard td:nth-child(3n) {
+  border-right-width: 3px;
+}
+
+#sudokuBoard tr:first-child td {
+  border-top-width: 3px;
+}
+
+#sudokuBoard tr:nth-child(3n) td {
+  border-bottom-width: 3px;
+}
+
+.fixed-value,
+.cell-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.35rem, 1.8vw, 2rem);
+  font-weight: 700;
+}
+
+.fixed-value {
+  color: #10243a;
+}
+
+.cell-input {
+  border: 0;
+  background: transparent;
+  color: #0f3550;
+  text-align: center;
+  outline: 0;
+  caret-color: var(--accent-strong);
+}
+
+.cell-input.is-incorrect {
+  color: #b61e2f;
+}
+
+.cell-input.is-correct {
+  color: #12875d;
+}
+
+.game-outcome {
+  display: none;
+  margin-top: 18px;
+  padding: 18px 20px;
+  border-radius: 20px;
+  font-size: 1rem;
+}
+
+.game-outcome.is-visible {
+  display: block;
+}
+
+.game-outcome.outcome-success {
+  background: rgba(68, 209, 159, 0.12);
+  border: 1px solid rgba(68, 209, 159, 0.3);
+}
+
+.game-outcome.outcome-error {
+  background: rgba(255, 111, 125, 0.12);
+  border: 1px solid rgba(255, 111, 125, 0.3);
+}
+
+.game-outcome.outcome-info {
+  background: rgba(83, 214, 255, 0.12);
+  border: 1px solid rgba(83, 214, 255, 0.3);
+}
+
+.invalid-feedback {
+  color: #ffb8c0;
+}
+
+@media (max-width: 1199px) {
+  .auth-layout,
+  .game-layout,
+  .difficulty-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-panel,
+  .auth-panel {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .app-shell {
+    padding-top: 88px;
+  }
+
+  .hero-panel,
+  .auth-panel,
+  .level-panel,
+  .game-sidebar,
+  .board-panel {
+    padding: 22px;
+  }
+
+  .hero-highlights,
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .board-header,
+  .keypad-heading {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #sudokuBoard td {
+    height: 42px;
+  }
+
+  .fixed-value,
+  .cell-input {
+    font-size: 1.15rem;
+  }
 }
